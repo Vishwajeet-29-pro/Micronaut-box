@@ -25,6 +25,9 @@ java {
     targetCompatibility = JavaVersion.toVersion("21")
 }
 
+application {
+    mainClass.set("com.micronaut.simple.Application")
+}
 
 graalvmNative.toolchainDetection = false
 
