@@ -21,4 +21,10 @@ class HelloControllerTest {
 
         assertEquals("Hello Micronaut", response);
     }
+
+    @Test
+    void testQueryValue() {
+        String response = httpClient.toBlocking().retrieve("/hello/query?value=World");
+        assertEquals("Hello World", response);
+    }
 }
