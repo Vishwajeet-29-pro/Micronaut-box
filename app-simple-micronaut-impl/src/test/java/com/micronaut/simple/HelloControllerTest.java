@@ -33,4 +33,10 @@ class HelloControllerTest {
         String response = httpClient.toBlocking().retrieve("/hello/Micronaut");
         assertEquals("Hello Micronaut", response);
     }
+
+    @Test
+    void testConfig() {
+        String response = httpClient.toBlocking().retrieve("/config");
+        assertEquals("Hello from Configuration", response);
+    }
 }
