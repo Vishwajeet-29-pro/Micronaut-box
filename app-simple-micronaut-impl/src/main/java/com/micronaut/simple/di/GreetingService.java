@@ -1,4 +1,4 @@
-package com.micronaut.simple;
+package com.micronaut.simple.di;
 
 import jakarta.inject.Singleton;
 
