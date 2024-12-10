@@ -25,6 +25,7 @@ dependencies {
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.yaml:snakeyaml")
     testImplementation("io.micronaut:micronaut-http-client")
+    testImplementation("org.mockito:mockito-core")
 }
 
 
