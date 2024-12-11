@@ -21,6 +21,8 @@ public class StudentService {
     }
 
     public List<StudentResponse> findAllStudents() {
-        return List.of();
+        return studentRepository.findAll().stream()
+                .map(StudentResponse::toStudentResponse)
+                .toList();
     }
 }
