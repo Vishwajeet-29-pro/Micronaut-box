@@ -37,7 +37,7 @@ dependencies {
 
 
 application {
-    mainClass = "com.micronaut.Application"
+    mainClass = "com.micronaut.h2.H2Application"
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
