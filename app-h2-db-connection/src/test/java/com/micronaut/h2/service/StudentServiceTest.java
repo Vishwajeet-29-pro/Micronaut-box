@@ -15,8 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @MicronautTest
 class StudentServiceTest {
@@ -92,5 +91,15 @@ class StudentServiceTest {
         assertEquals("Harvey Spector", response.getStudentName());
         assertEquals(23, response.getAge());
         assertEquals("Computer Science", response.getStream());
+    }
+
+    @Test
+    void testDeleteStudentByIdShouldDeleteStudent() {
+        Long id = 1L;
+        when(studentRepository.existsById(id)).thenReturn(true);
+
+        studentService.deleteStudentById(id);
+
+        verify(studentRepository, times(1)).deleteById(id);
     }
 }

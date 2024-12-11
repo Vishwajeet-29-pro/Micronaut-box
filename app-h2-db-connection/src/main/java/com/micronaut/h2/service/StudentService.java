@@ -40,4 +40,8 @@ public class StudentService {
         Student updatedStudent = studentRepository.save(student);
         return StudentResponse.toStudentResponse(updatedStudent);
     }
+
+    public void deleteStudentById(Long id) {
+
+    }
 }
