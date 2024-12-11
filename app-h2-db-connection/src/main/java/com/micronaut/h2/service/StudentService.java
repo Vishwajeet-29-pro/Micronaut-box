@@ -33,6 +33,11 @@ public class StudentService {
     }
 
     public StudentResponse updateStudentDetailsById(Long id, StudentRequest updateStudent) {
-        return null;
+        Student student = studentRepository.findById(id).orElseThrow();
+        student.setStudentName(updateStudent.getStudentName());
+        student.setAge(updateStudent.getAge());
+        student.setStream(updateStudent.getStream());
+        Student updatedStudent = studentRepository.save(student);
+        return StudentResponse.toStudentResponse(updatedStudent);
     }
 }
