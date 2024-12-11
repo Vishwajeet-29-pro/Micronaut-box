@@ -7,6 +7,8 @@ import com.micronaut.h2.repository.StudentRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Singleton
 @RequiredArgsConstructor
 public class StudentService {
@@ -16,5 +18,9 @@ public class StudentService {
     public StudentResponse createStudent(StudentRequest studentRequest) {
         Student student = studentRepository.save(StudentRequest.toStudent(studentRequest));
         return StudentResponse.toStudentResponse(student);
+    }
+
+    public List<StudentResponse> findAllStudents() {
+        return List.of();
     }
 }

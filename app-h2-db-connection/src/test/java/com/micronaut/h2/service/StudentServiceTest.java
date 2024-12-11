@@ -10,6 +10,8 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -48,5 +50,16 @@ class StudentServiceTest {
         assertEquals("Harvey", response.getStudentName());
         assertEquals(22, response.getAge());
         assertEquals("Computer", response.getStream());
+    }
+
+    @Test
+    void testListAllStudentShouldReturnListOfStudent() {
+        when(studentRepository.findAll()).thenReturn(List.of(student));
+        List<StudentResponse> studentResponses = studentService.findAllStudents();
+
+        assertNotNull(studentResponses);
+        assertEquals(1, studentResponses.size());
+        assertEquals("Harvey", studentResponses.getFirst().getStudentName());
+        assertEquals(22, studentResponses.getFirst().getAge());
     }
 }
