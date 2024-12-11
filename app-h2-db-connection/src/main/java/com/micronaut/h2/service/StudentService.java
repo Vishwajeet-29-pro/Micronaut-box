@@ -31,4 +31,8 @@ public class StudentService {
         Student studentResponse = studentRepository.findById(id).orElseThrow();
         return StudentResponse.toStudentResponse(studentResponse);
     }
+
+    public StudentResponse updateStudentDetailsById(Long id, StudentRequest updateStudent) {
+        return null;
+    }
 }

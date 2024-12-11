@@ -75,4 +75,22 @@ class StudentServiceTest {
         assertEquals(22, studentResponse.getAge());
         assertEquals("Computer", studentResponse.getStream());
     }
+
+    @Test
+    void testUpdateStudentByIdShouldUpdateStudent() {
+        Long id = 1L;
+        StudentRequest updateStudent = new StudentRequest("Harvey Spector", 23, "Computer Science");
+        when(studentRepository.findById(id)).thenReturn(Optional.of(student));
+        student.setStudentName("Harvey Spector");
+        student.setAge(23);
+        student.setStream("Computer Science");
+        when(studentRepository.save(any(Student.class))).thenReturn(student);
+
+        StudentResponse response = studentService.updateStudentDetailsById(id, updateStudent);
+
+        assertNotNull(response);
+        assertEquals("Harvey Spector", response.getStudentName());
+        assertEquals(23, response.getAge());
+        assertEquals("Computer Science", response.getStream());
+    }
 }
