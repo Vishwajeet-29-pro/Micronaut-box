@@ -8,6 +8,7 @@ import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @Singleton
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class StudentService {
     }
 
     public StudentResponse findStudentById(Long id) {
-        return null;
+        Student studentResponse = studentRepository.findById(id).orElseThrow();
+        return StudentResponse.toStudentResponse(studentResponse);
     }
 }
