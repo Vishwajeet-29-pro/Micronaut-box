@@ -25,4 +25,8 @@ public class StudentService {
                 .map(StudentResponse::toStudentResponse)
                 .toList();
     }
+
+    public StudentResponse findStudentById(Long id) {
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,5 +62,17 @@ class StudentServiceTest {
         assertEquals(1, studentResponses.size());
         assertEquals("Harvey", studentResponses.getFirst().getStudentName());
         assertEquals(22, studentResponses.getFirst().getAge());
+    }
+
+    @Test
+    void testFindByIdShouldReturnStudentDetail() {
+        Long id = 1L;
+        when(studentRepository.findById(any(Long.class))).thenReturn(Optional.of(student));
+        StudentResponse studentResponse = studentService.findStudentById(id);
+
+        assertNotNull(studentResponse);
+        assertEquals("Harvey", studentResponse.getStudentName());
+        assertEquals(22, studentResponse.getAge());
+        assertEquals("Computer", studentResponse.getStream());
     }
 }
