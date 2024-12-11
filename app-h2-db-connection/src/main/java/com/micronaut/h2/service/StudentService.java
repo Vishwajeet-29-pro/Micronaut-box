@@ -42,6 +42,9 @@ public class StudentService {
     }
 
     public void deleteStudentById(Long id) {
-
+        if (!studentRepository.existsById(id)) {
+            throw new IllegalArgumentException("Student with id "+id+" not found");
+        }
+        studentRepository.deleteById(id);
     }
 }
