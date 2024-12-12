@@ -37,8 +37,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Makefile Permissions
-        run: chmod +x Makefile
+      - name: Gradlew Permissions
+        run: chmod +x ./gradlew
 
       - name: Ensure Gradle Wrapper
         run: |
