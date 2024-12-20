@@ -4,10 +4,7 @@ import com.micronaut.h2.dto.StudentRequest;
 import com.micronaut.h2.dto.StudentResponse;
 import com.micronaut.h2.service.StudentService;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
@@ -28,5 +25,11 @@ public class StudentController {
     public HttpResponse<List<StudentResponse>> getStudentsByList() {
         List<StudentResponse> studentResponses = studentService.findAllStudents();
         return HttpResponse.ok(studentResponses);
+    }
+
+    @Get("/{id}")
+    public HttpResponse<StudentResponse> getStudentById(@PathVariable Long id) {
+        StudentResponse response = studentService.findStudentById(id);
+        return HttpResponse.ok(response);
     }
 }
