@@ -40,4 +40,10 @@ public class StudentController {
         StudentResponse studentResponse = studentService.updateStudentDetailsById(id, studentRequest);
         return HttpResponse.ok(studentResponse);
     }
+
+    @Delete("/{id}")
+    public HttpResponse<Void> deleteStudentById(@PathVariable Long id) {
+        studentService.deleteStudentById(id);
+        return HttpResponse.noContent();
+    }
 }
