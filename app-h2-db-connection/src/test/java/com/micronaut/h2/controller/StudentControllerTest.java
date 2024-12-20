@@ -98,5 +98,22 @@ class StudentControllerTest {
         assertEquals("Computer", response.body().getStream());
     }
 
+    @Test
+    void test_update_by_id_should_update_student_details_and_return_updated_student() {
+        long id = 1L;
+        StudentRequest updateRequest = new StudentRequest("Robin R", 23, "Computer");
+        StudentResponse updatedStudent = new StudentResponse(1L, "Robin R", 23, "Computer");
 
+        when(studentService.updateStudentDetailsById(anyLong(), any(StudentRequest.class))).thenReturn(updatedStudent);
+
+        HttpResponse<StudentResponse> response = httpClient.toBlocking().exchange(
+                HttpRequest.PUT("/api/v1/students/"+id, updateRequest),
+                StudentResponse.class
+        );
+
+        assertEquals(200, response.getStatus().getCode());
+        assertNotNull(response);
+        assertEquals("Robin R", response.body().getStudentName());
+        assertEquals(23, response.body().getAge());
+    }
 }
