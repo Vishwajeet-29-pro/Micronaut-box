@@ -32,4 +32,12 @@ public class StudentController {
         StudentResponse response = studentService.findStudentById(id);
         return HttpResponse.ok(response);
     }
+
+    @Put("/{id}")
+    public HttpResponse<StudentResponse> updateStudentById(
+            @PathVariable Long id, @Body StudentRequest studentRequest
+    ) {
+        StudentResponse studentResponse = studentService.updateStudentDetailsById(id, studentRequest);
+        return HttpResponse.ok(studentResponse);
+    }
 }
