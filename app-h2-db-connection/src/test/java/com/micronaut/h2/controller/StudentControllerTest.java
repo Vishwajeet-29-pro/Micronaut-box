@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -78,5 +79,22 @@ class StudentControllerTest {
         assertEquals("Robin", response.body().getFirst().getStudentName());
         assertEquals(23, response.body().get(1).getAge());
         assertEquals("Physics", response.body().getLast().getStream());
+    }
+
+    @Test
+    void test_get_by_id_should_return_student_response() {
+        StudentResponse studentResponse = new StudentResponse(1L, "Robin", 22, "Computer");
+        Long studentId = 1L;
+        when(studentService.findStudentById(anyLong())).thenReturn(studentResponse);
+
+        HttpResponse<StudentResponse> response = httpClient.toBlocking().exchange(
+                HttpRequest.GET("/api/v1/students/" + studentId),
+                StudentResponse.class
+        );
+
+        assertEquals(200, response.getStatus().getCode());
+        assertNotNull(response);
+        assertEquals("Robin", response.body().getStudentName());
+        assertEquals("Computer", response.body().getStream());
     }
 }
