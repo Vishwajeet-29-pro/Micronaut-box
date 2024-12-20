@@ -21,8 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @MicronautTest
 @SerdeImport(StudentRequest.class)
@@ -115,5 +114,19 @@ class StudentControllerTest {
         assertNotNull(response);
         assertEquals("Robin R", response.body().getStudentName());
         assertEquals(23, response.body().getAge());
+    }
+
+    @Test
+    void test_delete_by_id_should_delete_student_returns_204_no_content_response() {
+        long id = 1L;
+
+        doNothing().when(studentService).deleteStudentById(id);
+
+        HttpResponse<Void> response = httpClient.toBlocking().exchange(
+                HttpRequest.DELETE("/api/v1/students/" + id)
+        );
+
+        assertEquals(204, response.getStatus().getCode());
+        verify(studentService, times(1)).deleteStudentById(id);
     }
 }
