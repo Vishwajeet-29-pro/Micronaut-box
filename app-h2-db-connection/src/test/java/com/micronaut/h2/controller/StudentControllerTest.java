@@ -84,7 +84,7 @@ class StudentControllerTest {
     @Test
     void test_get_by_id_should_return_student_response() {
         StudentResponse studentResponse = new StudentResponse(1L, "Robin", 22, "Computer");
-        Long studentId = 1L;
+        long studentId = 1L;
         when(studentService.findStudentById(anyLong())).thenReturn(studentResponse);
 
         HttpResponse<StudentResponse> response = httpClient.toBlocking().exchange(
@@ -97,4 +97,6 @@ class StudentControllerTest {
         assertEquals("Robin", response.body().getStudentName());
         assertEquals("Computer", response.body().getStream());
     }
+
+
 }
