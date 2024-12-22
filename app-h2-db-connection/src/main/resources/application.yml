@@ -1,6 +1,16 @@
 micronaut:
   application:
     name: my-application
+
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+
 datasources:
   default:
     password: ""
@@ -15,12 +25,3 @@ jpa:
         hbm2ddl:
           auto: update
         show_sql: true
-
-  router:
-    static-resources:
-      swagger:
-        paths: classpath:META-INF/swagger
-        mapping: /swagger/**
-      swagger-ui:
-        paths: classpath:META-INF/swagger/views/swagger-ui
-        mapping: /swagger-ui/**
