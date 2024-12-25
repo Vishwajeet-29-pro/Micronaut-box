@@ -20,7 +20,7 @@ public class LibraryResponse {
     public static LibraryResponse toResponse(Library library) {
         return new LibraryResponse(
                 library.getId(), library.getName(),
-                library.getLocation(), library.getDate(),
+                library.getLocation(), library.getEstablishDate(),
                 library.isActive()
         );
     }

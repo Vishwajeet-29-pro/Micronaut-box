@@ -18,7 +18,7 @@ public class LibraryRequest {
         Library library = new Library();
         library.setName(libraryRequest.getName());
         library.setLocation(libraryRequest.getLocation());
-        library.setDate(libraryRequest.getEstablishDate());
+        library.setEstablishDate(libraryRequest.getEstablishDate());
         library.setActive(libraryRequest.isActive());
 
         return library;
