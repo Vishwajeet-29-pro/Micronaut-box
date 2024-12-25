@@ -22,6 +22,6 @@ public class Library {
     private UUID id;
     private String name;
     private String location;
-    private LocalDate date;
+    private LocalDate establishDate;
     private boolean isActive;
 }
