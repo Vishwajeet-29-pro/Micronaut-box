@@ -9,7 +9,6 @@ datasources:
     username: myuser
     driver-class-name: org.postgresql.Driver
     schema-generate: CREATE
-  dialect: POSTGRES
 
 jpa:
   default:
