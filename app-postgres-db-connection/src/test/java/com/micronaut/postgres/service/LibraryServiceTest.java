@@ -4,6 +4,7 @@ import com.micronaut.postgres.dto.LibraryRequest;
 import com.micronaut.postgres.dto.LibraryResponse;
 import com.micronaut.postgres.model.Library;
 import com.micronaut.postgres.repository.LibraryRepository;
+import io.micronaut.context.annotation.Replaces;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
@@ -27,7 +28,8 @@ class LibraryServiceTest {
     @Inject
     private LibraryRepository libraryRepository;
 
-    @MockBean
+    @MockBean(LibraryRepository.class)
+    @Replaces(LibraryRepository.class)
     LibraryRepository mockLibraryRepository() {
         return mock(LibraryRepository.class);
     }
