@@ -1,3 +1,20 @@
 micronaut:
   application:
     name: Postgres-Application
+
+datasources:
+  default:
+    password: mypassword
+    url: jdbc:postgresql://localhost:5432/micronautbox
+    username: myuser
+    driver-class-name: org.postgresql.Driver
+    schema-generate: CREATE
+  dialect: POSTGRES
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
