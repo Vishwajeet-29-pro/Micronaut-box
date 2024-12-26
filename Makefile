@@ -1,5 +1,5 @@
 GRADLE=./gradlew
-MODULES=$(shell ls -d */ | grep app)
+MODULES=$(shell ls -d * | grep app)
 
 # Commands
 .PHONY: all clean build test run help
@@ -14,10 +14,8 @@ clean:
 pipeline: all
 
 build:
-	$(GRADLE) \
-		build \
-		:app-h2-db-connection:build
-	@echo "Built modules."
+	$(GRADLE) build $(foreach MODULE,$(MODULES),:$(MODULE):build)
+	@echo "Built all modules: $(MODULES)"
 
 test:
 	$(GRADLE) test
