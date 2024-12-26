@@ -2,6 +2,7 @@ package com.micronaut.postgres.service;
 
 import com.micronaut.postgres.dto.LibraryRequest;
 import com.micronaut.postgres.dto.LibraryResponse;
+import com.micronaut.postgres.model.Library;
 import com.micronaut.postgres.repository.LibraryRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,8 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public LibraryResponse addLibraryDetails(LibraryRequest libraryRequest) {
-        return null;
+        Library library = libraryRepository.save(LibraryRequest.toLibrary(libraryRequest));
+        return LibraryResponse.toResponse(library);
     }
 
     @Override
