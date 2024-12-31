@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +45,7 @@ class LibraryServiceTest {
     }
 
     @Test
-    void test_create_book_should_return_book_response() {
+    void test_add_library_details_should_return_library_response() {
         when(libraryRepository.save(any(Library.class))).thenReturn(library);
 
         LibraryResponse libraryResponse = libraryService.addLibraryDetails(libraryRequest);
