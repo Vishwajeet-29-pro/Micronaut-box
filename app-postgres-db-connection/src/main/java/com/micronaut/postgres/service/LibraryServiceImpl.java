@@ -31,7 +31,8 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public LibraryResponse getLibraryById(UUID id) {
-        return null;
+        Library response = libraryRepository.findById(id).orElseThrow();
+        return LibraryResponse.toResponse(response);
     }
 
     @Override
