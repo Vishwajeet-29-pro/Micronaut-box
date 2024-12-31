@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -66,5 +67,16 @@ class LibraryServiceTest {
         assertEquals(1, libraryResponses.size());
         assertEquals("Central Library", libraryResponses.getFirst().getName());
         assertEquals("SB road, Pune", libraryResponses.getFirst().getLocation());
+    }
+
+    @Test
+    void test_find_library_by_id_should_return_library_response() {
+        when(libraryRepository.findById(any(UUID.class))).thenReturn(Optional.of(library));
+
+        LibraryResponse libraryResponse = libraryService.getLibraryById(UUID.randomUUID());
+
+        assertNotNull(libraryResponse);
+        assertEquals("Central Library", libraryResponse.getName());
+        assertEquals("SB road, Pune", libraryResponse.getLocation());
     }
 }
