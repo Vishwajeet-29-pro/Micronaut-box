@@ -55,4 +55,16 @@ class LibraryServiceTest {
         assertEquals("SB road, Pune", libraryResponse.getLocation());
         assertEquals(LocalDate.of(2004, 1, 1), libraryResponse.getEstablishDate());
     }
+
+    @Test
+    void test_retrieve_all_libraries_should_return_list_of_libraries() {
+        when(libraryRepository.findAll()).thenReturn(List.of(library));
+
+        List<LibraryResponse> libraryResponses = libraryService.findAllLibraries();
+
+        assertNotNull(libraryResponses);
+        assertEquals(1, libraryResponses.size());
+        assertEquals("Central Library", libraryResponses.getFirst().getName());
+        assertEquals("SB road, Pune", libraryResponses.getFirst().getName());
+    }
 }
