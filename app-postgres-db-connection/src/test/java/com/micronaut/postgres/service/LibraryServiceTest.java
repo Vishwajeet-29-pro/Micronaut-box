@@ -65,6 +65,6 @@ class LibraryServiceTest {
         assertNotNull(libraryResponses);
         assertEquals(1, libraryResponses.size());
         assertEquals("Central Library", libraryResponses.getFirst().getName());
-        assertEquals("SB road, Pune", libraryResponses.getFirst().getName());
+        assertEquals("SB road, Pune", libraryResponses.getFirst().getLocation());
     }
 }
