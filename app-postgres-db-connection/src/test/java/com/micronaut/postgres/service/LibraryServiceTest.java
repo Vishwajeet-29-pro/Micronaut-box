@@ -16,8 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -78,5 +77,23 @@ class LibraryServiceTest {
         assertNotNull(libraryResponse);
         assertEquals("Central Library", libraryResponse.getName());
         assertEquals("SB road, Pune", libraryResponse.getLocation());
+    }
+
+    @Test
+    void test_update_by_id_should_update_library_details() {
+        UUID id = UUID.randomUUID();
+        LibraryRequest updateRequest = new LibraryRequest("Eastern Library", "Patil Nagar, Pune", LocalDate.of(2005, 12, 1), false);
+        when(libraryRepository.findById(id)).thenReturn(Optional.of(library));
+        library.setName("Eastern Library");
+        library.setLocation("Patil Nagar, Pune");
+        library.setEstablishDate(LocalDate.of(2005, 12, 1));
+        library.setActive(false);
+        when(libraryRepository.save(any(Library.class))).thenReturn(library);
+
+        LibraryResponse libraryResponse = libraryService.updateLibraryById(id, updateRequest);
+
+        assertEquals(library.getName(), libraryResponse.getName());
+        assertEquals(library.getLocation(), libraryResponse.getLocation());
+        assertFalse(libraryResponse.isActive());
     }
 }
