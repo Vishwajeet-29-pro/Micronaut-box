@@ -49,6 +49,9 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public void deleteLibraryDetailsById(UUID id) {
-
+        if (!libraryRepository.existsById(id)) {
+            throw new IllegalArgumentException("Library with id "+id+" not found");
+        }
+        libraryRepository.deleteById(id);
     }
 }
