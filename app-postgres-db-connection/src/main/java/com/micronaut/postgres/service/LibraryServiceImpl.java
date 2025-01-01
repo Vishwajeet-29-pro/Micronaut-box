@@ -37,7 +37,14 @@ public class LibraryServiceImpl implements LibraryService {
 
     @Override
     public LibraryResponse updateLibraryById(UUID id, LibraryRequest libraryRequest) {
-        return null;
+        Library updateLibrary = libraryRepository.findById(id).orElseThrow();
+        updateLibrary.setName(libraryRequest.getName());
+        updateLibrary.setLocation(libraryRequest.getLocation());
+        updateLibrary.setEstablishDate(libraryRequest.getEstablishDate());
+        updateLibrary.setActive(libraryRequest.isActive());
+        Library updatedLibrary = libraryRepository.save(updateLibrary);
+
+        return LibraryResponse.toResponse(updatedLibrary);
     }
 
     @Override
