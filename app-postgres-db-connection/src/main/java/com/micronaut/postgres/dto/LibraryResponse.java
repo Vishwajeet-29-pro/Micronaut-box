@@ -1,6 +1,7 @@
 package com.micronaut.postgres.dto;
 
 import com.micronaut.postgres.model.Library;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @AllArgsConstructor
+@Serdeable
 public class LibraryResponse {
 
     private UUID id;

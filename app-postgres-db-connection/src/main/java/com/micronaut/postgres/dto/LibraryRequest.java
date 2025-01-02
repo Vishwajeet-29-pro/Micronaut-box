@@ -1,6 +1,7 @@
 package com.micronaut.postgres.dto;
 
 import com.micronaut.postgres.model.Library;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@Serdeable
 public class LibraryRequest {
     private String name;
     private String location;
