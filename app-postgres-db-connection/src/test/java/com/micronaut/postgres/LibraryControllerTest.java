@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 class LibraryControllerTest {
 
     @Inject
-    @Client
+    @Client("/")
     HttpClient httpClient;
 
     @Inject
@@ -42,7 +42,7 @@ class LibraryControllerTest {
         when(libraryService.addLibraryDetails(libraryRequest)).thenReturn(libraryResponse);
 
         HttpResponse<LibraryResponse> libraryResponseHttpResponse = httpClient.toBlocking().exchange(
-                HttpRequest.POST("/api/v1/students", libraryRequest),
+                HttpRequest.POST("/api/v1/library", libraryRequest),
                 LibraryResponse.class
         );
 
