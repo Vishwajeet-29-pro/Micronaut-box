@@ -91,4 +91,22 @@ class LibraryControllerTest {
         assertEquals(LocalDate.of(2004, 1, 1), response.body().getEstablishDate());
         assertTrue(response.body().isActive());
     }
+
+    @Test
+    void test_update_library_should_update_library_and_return_ok() {
+        LibraryRequest libraryRequest = new LibraryRequest("New Central Library", "SB road, Pune", LocalDate.of(2005, 1, 1), true);
+        UUID id = UUID.randomUUID();
+        LibraryResponse libraryResponse = new LibraryResponse(id, "New Central Library", "SB road, Pune", LocalDate.of(2005, 1, 1), true);
+
+        when(libraryService.updateLibraryById(id, libraryRequest)).thenReturn(libraryResponse);
+
+        HttpResponse<LibraryResponse> response = httpClient.toBlocking().exchange(
+                HttpRequest.PUT("/api/v1/library/"+id, libraryRequest),
+                LibraryResponse.class
+        );
+
+        assertEquals(libraryRequest.getName(), response.body().getName());
+        assertEquals(libraryRequest.getEstablishDate(), response.body().getEstablishDate());
+        assertTrue(response.body().isActive());
+    }
 }
