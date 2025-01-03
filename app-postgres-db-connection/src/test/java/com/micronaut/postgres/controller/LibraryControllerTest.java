@@ -1,4 +1,4 @@
-package com.micronaut.postgres;
+package com.micronaut.postgres.controller;
 
 import com.micronaut.postgres.dto.LibraryRequest;
 import com.micronaut.postgres.dto.LibraryResponse;
