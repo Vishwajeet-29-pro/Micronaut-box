@@ -29,4 +29,9 @@ public class LibraryController {
     public HttpResponse<LibraryResponse> retrieveLibraryById(@PathVariable UUID id) {
         return HttpResponse.ok(libraryService.getLibraryById(id));
     }
+
+    @Put("/{id}")
+    public HttpResponse<LibraryResponse> updateLibraryById(@PathVariable UUID id, @Body LibraryRequest libraryRequest) {
+        return HttpResponse.ok(libraryService.updateLibraryById(id, libraryRequest));
+    }
 }
