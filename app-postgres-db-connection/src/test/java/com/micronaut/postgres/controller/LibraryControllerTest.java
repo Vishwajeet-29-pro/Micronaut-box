@@ -19,8 +19,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @MicronautTest
 class LibraryControllerTest {
@@ -108,5 +107,21 @@ class LibraryControllerTest {
         assertEquals(libraryRequest.getName(), response.body().getName());
         assertEquals(libraryRequest.getEstablishDate(), response.body().getEstablishDate());
         assertTrue(response.body().isActive());
+    }
+
+    @Test
+    void test_delete_by_id_should_delete_library_and_return_204() {
+        UUID id = UUID.randomUUID();
+
+        doNothing().when(libraryService).deleteLibraryDetailsById(id);
+
+        HttpResponse<Void> response = httpClient.toBlocking().exchange(
+                HttpRequest.DELETE("/api/v1/library/"+id),
+                Void.class
+        );
+
+        assertEquals(204, response.getStatus().getCode());
+        verify(libraryService, times(1)).deleteLibraryDetailsById(id);
+
     }
 }
