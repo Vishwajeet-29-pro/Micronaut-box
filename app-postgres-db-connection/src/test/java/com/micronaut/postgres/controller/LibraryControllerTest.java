@@ -3,6 +3,7 @@ package com.micronaut.postgres.controller;
 import com.micronaut.postgres.dto.LibraryRequest;
 import com.micronaut.postgres.dto.LibraryResponse;
 import com.micronaut.postgres.service.LibraryService;
+import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.HttpClient;
@@ -13,6 +14,7 @@ import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,5 +52,27 @@ class LibraryControllerTest {
         assertNotNull(libraryResponseHttpResponse);
         assertEquals("Central Library", libraryResponseHttpResponse.body().getName());
         assertTrue(libraryResponseHttpResponse.body().isActive());
+    }
+
+    @Test
+    void test_get_all_libraries_should_return_library_response_list() {
+        List<LibraryResponse> libraryResponses = List.of(
+                new LibraryResponse(UUID.randomUUID(), "Central Library", "SB road, Pune", LocalDate.of(2004, 1, 1), true),
+                new LibraryResponse(UUID.randomUUID(), "JN Library", "ABC road, Pune", LocalDate.of(2005, 1,26), false)
+        );
+
+        when(libraryService.findAllLibraries()).thenReturn(libraryResponses);
+
+        HttpResponse<List<LibraryResponse>> response = httpClient.toBlocking().exchange(
+                HttpRequest.GET("/api/v1/library"), Argument.listOf(LibraryResponse.class)
+        );
+
+        assertNotNull(response);
+        assertEquals(2, response.body().size());
+        assertEquals("Central Library", response.body().getFirst().getName());
+        assertEquals("ABC road, Pune", response.body().get(1).getLocation());
+        assertEquals(LocalDate.of(2004, 1,1 ), response.body().getFirst().getEstablishDate());
+        assertTrue(response.body().getFirst().isActive());
+        assertFalse(response.body().get(1).isActive());
     }
 }
