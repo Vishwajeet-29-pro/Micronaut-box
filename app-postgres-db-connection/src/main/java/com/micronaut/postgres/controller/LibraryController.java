@@ -34,4 +34,10 @@ public class LibraryController {
     public HttpResponse<LibraryResponse> updateLibraryById(@PathVariable UUID id, @Body LibraryRequest libraryRequest) {
         return HttpResponse.ok(libraryService.updateLibraryById(id, libraryRequest));
     }
+
+    @Delete("/{id}")
+    public HttpResponse<Void> deleteLibraryById(@PathVariable UUID id) {
+        libraryService.deleteLibraryDetailsById(id);
+        return HttpResponse.noContent();
+    }
 }
