@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -74,5 +75,20 @@ class LibraryControllerTest {
         assertEquals(LocalDate.of(2004, 1,1 ), response.body().getFirst().getEstablishDate());
         assertTrue(response.body().getFirst().isActive());
         assertFalse(response.body().get(1).isActive());
+    }
+
+    @Test
+    void test_get_by_id_should_return_library_response() {
+        LibraryResponse libraryResponse = new LibraryResponse(UUID.randomUUID(), "Central Library", "SB road, Pune", LocalDate.of(2004,1,1 ), true);
+        when(libraryService.getLibraryById(any(UUID.class))).thenReturn(libraryResponse);
+
+        HttpResponse<LibraryResponse> response = httpClient.toBlocking().exchange(
+                HttpRequest.GET("/api/v1/library/" + UUID.randomUUID()),
+                LibraryResponse.class
+        );
+        assertEquals("SB road, Pune", response.body().getLocation());
+        assertEquals("Central Library", response.body().getName());
+        assertEquals(LocalDate.of(2004, 1, 1), response.body().getEstablishDate());
+        assertTrue(response.body().isActive());
     }
 }
