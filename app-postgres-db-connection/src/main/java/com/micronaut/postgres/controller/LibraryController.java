@@ -4,13 +4,11 @@ import com.micronaut.postgres.dto.LibraryRequest;
 import com.micronaut.postgres.dto.LibraryResponse;
 import com.micronaut.postgres.service.LibraryService;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
+import io.micronaut.http.annotation.*;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 @Controller("/api/v1/library")
 @RequiredArgsConstructor
@@ -25,5 +23,10 @@ public class LibraryController {
     @Get
     public HttpResponse<List<LibraryResponse>> retrieveAllLibraries() {
         return HttpResponse.ok(libraryService.findAllLibraries());
+    }
+
+    @Get("/{id}")
+    public HttpResponse<LibraryResponse> retrieveLibraryById(@PathVariable UUID id) {
+        return HttpResponse.ok(libraryService.getLibraryById(id));
     }
 }
