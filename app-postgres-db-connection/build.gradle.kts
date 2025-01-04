@@ -41,7 +41,7 @@ dependencies {
 
 
 application {
-    mainClass = "com.micronaut.postgres.DbPostgresApp"
+    mainClass = "com.micronaut.postgres.PostgresApplication"
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
