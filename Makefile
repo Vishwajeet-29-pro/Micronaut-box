@@ -21,9 +21,22 @@ test:
 	$(GRADLE) test
 	@echo "Tested the entire project."
 
-run:
+run-h2:
 	$(GRADLE) :app-h2-db-connection:run
 	@echo "Running the h2 application."
+
+run-postgres:
+	$(GRADLE) :app-postgres-db-connection
+
+run-simple-impl:
+	$(GRADLE) :app-simple-micronaut-impl:run
+	@echo "Running the simple application."
+
+# Build and test a specific module
+build-module:
+	@read -p "Enter the module name (e.g., db-h2-connection): " MODULE && \
+	$(GRADLE) :$$MODULE:clean :$$MODULE:build :$$MODULE:test && \
+	echo "Built and tested $$MODULE."
 
 help:
 	@echo "Usage:"
