@@ -25,8 +25,13 @@ run-h2:
 	$(GRADLE) :app-h2-db-connection:run
 	@echo "Running the h2 application."
 
+run-mysql:
+	$(GRADLE) :app-mysql-db-connection:run
+	@echo "Running the mysql application"
+
 run-postgres:
-	$(GRADLE) :app-postgres-db-connection
+	$(GRADLE) :app-postgres-db-connection:run
+	@echo "Running the postgres application"
 
 run-simple-impl:
 	$(GRADLE) :app-simple-micronaut-impl:run
