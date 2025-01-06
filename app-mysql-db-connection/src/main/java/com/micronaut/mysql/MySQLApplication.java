@@ -1,7 +1,9 @@
 package com.micronaut.mysql;
 
+import io.micronaut.runtime.Micronaut;
+
 public class MySQLApplication {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        Micronaut.run(MySQLApplication.class);
     }
 }
