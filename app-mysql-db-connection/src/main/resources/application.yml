@@ -1,0 +1,35 @@
+micronaut:
+  application:
+    name: MySQL-Application
+
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+
+datasources:
+  default:
+    password: root
+    url: jdbc:mysql://localhost:3306/micronautbox
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    schema-generate: CREATE
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: false
+
+flyway:
+  datasources:
+    default:
+      enabled: true
+      baseline-on-migrate: true
+      locations: classpath:db/migration
