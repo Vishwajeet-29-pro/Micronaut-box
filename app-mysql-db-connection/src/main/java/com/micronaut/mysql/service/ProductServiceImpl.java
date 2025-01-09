@@ -23,7 +23,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse findProductById(Long id) {
-        return null;
+        Product product = productRepository.findById(id).orElseThrow();
+        return ProductResponse.toProductResponse(product);
     }
 
     @Override
