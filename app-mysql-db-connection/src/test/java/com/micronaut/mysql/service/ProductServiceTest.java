@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -68,4 +69,18 @@ class ProductServiceTest {
         assertEquals(50, productResponse.getStockQuantity());
         assertEquals(LocalDateTime.of(2024, 1, 7, 10, 0), productResponse.getAddedAt());
     }
+
+    @Test
+    void find_all_product_should_return_list_of_product_response() {
+        when(productRepository.findAll()).thenReturn(List.of(product));
+
+        List<ProductResponse> productResponses = productService.findAllProducts();
+
+        assertNotNull(productResponses);
+        assertEquals(1, productResponses.size());
+        assertEquals("Mobile", productResponses.getFirst().getName());
+        assertEquals(50000.0, productResponses.getFirst().getPrice());
+        assertEquals(50, productResponses.getFirst().getStockQuantity());
+    }
+
 }
