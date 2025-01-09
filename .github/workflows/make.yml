@@ -33,7 +33,7 @@ jobs:
       mysql:
         image: mysql:latest
         env:
-          MYSQL_ROOT_PASSWORD: mypassword
+          MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: micronautbox
         ports:
           - 3306:3306
