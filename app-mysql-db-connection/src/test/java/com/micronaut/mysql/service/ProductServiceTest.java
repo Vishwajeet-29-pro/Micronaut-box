@@ -12,9 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -46,6 +48,19 @@ class ProductServiceTest {
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
         ProductResponse productResponse = productService.addProduct(productRequest);
+
+        assertNotNull(productResponse);
+        assertEquals("Mobile", productResponse.getName());
+        assertEquals(50000.0, productResponse.getPrice());
+        assertEquals(50, productResponse.getStockQuantity());
+        assertEquals(LocalDateTime.of(2024, 1, 7, 10, 0), productResponse.getAddedAt());
+    }
+
+    @Test
+    void find_by_id_should_return_product_response() {
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
+
+        ProductResponse productResponse = productService.findProductById(1L);
 
         assertNotNull(productResponse);
         assertEquals("Mobile", productResponse.getName());
