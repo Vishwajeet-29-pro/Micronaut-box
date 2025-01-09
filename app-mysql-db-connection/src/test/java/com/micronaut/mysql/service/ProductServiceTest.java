@@ -83,4 +83,25 @@ class ProductServiceTest {
         assertEquals(50, productResponses.getFirst().getStockQuantity());
     }
 
+    @Test
+    void update_by_id_should_update_product_and_return_product_response() {
+        Long id = 1L;
+        ProductRequest updateRequest = new ProductRequest("Mobile", "Oppo Reno 14", 60000.0, 40, LocalDateTime.of(2025,1, 9, 7, 0));
+        when(productRepository.findById(anyLong())).thenReturn(Optional.of(product));
+        product.setName("Mobile");
+        product.setDescription("Oppo Reno 14");
+        product.setPrice(60000.0);
+        product.setStockQuantity(40);
+        product.setAddedAt(LocalDateTime.of(2025, 1, 9, 7, 0));
+        when(productRepository.save(any(Product.class))).thenReturn(product);
+
+        ProductResponse productResponse = productService.updateProductById(id, updateRequest);
+
+        assertNotNull(productResponse);
+        assertEquals("Oppo Reno 14", productResponse.getDescription());
+        assertEquals(60000.0, productResponse.getPrice());
+        assertEquals(40, productResponse.getStockQuantity());
+        assertEquals(LocalDateTime.of(2025, 1, 9, 7, 0), productResponse.getAddedAt());
+    }
+
 }
