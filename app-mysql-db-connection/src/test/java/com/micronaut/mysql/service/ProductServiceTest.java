@@ -1,6 +1,7 @@
 package com.micronaut.mysql.service;
 
 import com.micronaut.mysql.dto.ProductRequest;
+import com.micronaut.mysql.dto.ProductResponse;
 import com.micronaut.mysql.model.Product;
 import com.micronaut.mysql.repository.ProductRepository;
 import io.micronaut.context.annotation.Replaces;
@@ -8,11 +9,14 @@ import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @MicronautTest
 class ProductServiceTest {
@@ -35,5 +39,18 @@ class ProductServiceTest {
     public void setup() {
         product = new Product(1L, "Mobile", "Oppo Reno 13", 50000.0, 50, LocalDateTime.of(2024, 1, 7, 10, 0));
         productRequest = new ProductRequest("Mobile", "Oppo Reno 13", 50000.0, 50, LocalDateTime.of(2024, 1, 7, 10, 0));
+    }
+
+    @Test
+    void add_new_product_should_return_product_response() {
+        when(productRepository.save(any(Product.class))).thenReturn(product);
+
+        ProductResponse productResponse = productService.addProduct(productRequest);
+
+        assertNotNull(productResponse);
+        assertEquals("Mobile", productResponse.getName());
+        assertEquals(50000.0, productResponse.getPrice());
+        assertEquals(50, productResponse.getStockQuantity());
+        assertEquals(LocalDateTime.of(2024, 1, 7, 10, 0), productResponse.getAddedAt());
     }
 }
