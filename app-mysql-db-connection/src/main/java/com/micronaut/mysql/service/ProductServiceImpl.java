@@ -2,6 +2,7 @@ package com.micronaut.mysql.service;
 
 import com.micronaut.mysql.dto.ProductRequest;
 import com.micronaut.mysql.dto.ProductResponse;
+import com.micronaut.mysql.model.Product;
 import com.micronaut.mysql.repository.ProductRepository;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse addProduct(ProductRequest productRequest) {
-        return null;
+        Product product = productRepository.save(ProductRequest.toProduct(productRequest));
+        return ProductResponse.toProductResponse(product);
     }
 
     @Override
