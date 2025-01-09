@@ -18,8 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @MicronautTest
 class ProductServiceTest {
@@ -104,4 +103,12 @@ class ProductServiceTest {
         assertEquals(LocalDateTime.of(2025, 1, 9, 7, 0), productResponse.getAddedAt());
     }
 
+    @Test
+    void delete_by_id_should_delete_product() {
+        Long id = 1L;
+        when(productRepository.existsById(id)).thenReturn(true);
+
+        productService.deleteProductById(id);
+        verify(productRepository, times(1)).deleteById(id);
+    }
 }
