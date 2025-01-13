@@ -2,7 +2,7 @@ import org.gradle.internal.impldep.org.fusesource.jansi.AnsiRenderer.test
 
 plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
-    id("io.micronaut.application") version "4.4.4"
+    id("io.micronaut.application") version "4.4.5"
     id("io.micronaut.aot") version "4.4.4"
 }
 
