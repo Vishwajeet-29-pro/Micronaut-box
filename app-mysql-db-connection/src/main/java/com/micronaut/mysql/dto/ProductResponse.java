@@ -1,6 +1,7 @@
 package com.micronaut.mysql.dto;
 
 import com.micronaut.mysql.model.Product;
+import io.micronaut.serde.annotation.Serdeable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@Serdeable
 public class ProductResponse {
     private Long id;
     private String name;
