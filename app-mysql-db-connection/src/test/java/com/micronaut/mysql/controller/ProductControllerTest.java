@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @MicronautTest
 class ProductControllerTest {
@@ -111,5 +110,19 @@ class ProductControllerTest {
         assertEquals(productResponse.getDescription(), productResponseHttpResponse.body().getDescription());
         assertEquals(productRequest.getPrice(), productResponseHttpResponse.body().getPrice());
         assertEquals(productResponse.getStockQuantity(), productResponseHttpResponse.body().getStockQuantity());
+    }
+
+    @Test
+    void test_delete_product_by_id_should_delete_product_and_return_204_no_content() {
+        Long id = 1L;
+
+        doNothing().when(productService).deleteProductById(id);
+
+        HttpResponse<Void> response = httpClient.toBlocking().exchange(
+                HttpRequest.DELETE("/api/v1/products/"+id), Void.class
+        );
+
+        assertEquals(204, response.getStatus().getCode());
+        verify(productService, times(1)).deleteProductById(id);
     }
 }
