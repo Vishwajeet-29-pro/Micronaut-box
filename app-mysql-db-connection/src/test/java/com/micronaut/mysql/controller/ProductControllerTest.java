@@ -1,14 +1,22 @@
 package com.micronaut.mysql.controller;
 
+import com.micronaut.mysql.dto.ProductRequest;
+import com.micronaut.mysql.dto.ProductResponse;
 import com.micronaut.mysql.service.ProductService;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.test.annotation.MockBean;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @MicronautTest
 class ProductControllerTest {
@@ -23,5 +31,24 @@ class ProductControllerTest {
     @MockBean(ProductService.class)
     ProductService mockProductService() {
         return mock(ProductService.class);
+    }
+
+    @Test
+    void test_create_product_should_return_product_response_with_201_created() {
+        ProductRequest productRequest = new ProductRequest("Mobile", "Oppo Reno 14", 50000.0, 50, LocalDateTime.of(2025, 1, 14, 8, 0));
+        ProductResponse productResponse = new ProductResponse(1L,"Mobile", "Oppo Reno 14", 50000.0, 50, LocalDateTime.of(2025, 1, 14, 8, 0));
+
+        when(productService.addProduct(productRequest)).thenReturn(productResponse);
+
+        HttpResponse<ProductResponse> productResponseHttpResponse = httpClient.toBlocking().exchange(
+                HttpRequest.POST("/api/v1/products", productRequest),
+                ProductResponse.class
+        );
+
+        assertEquals(201, productResponseHttpResponse.getStatus().getCode());
+        assertNotNull(productResponseHttpResponse);
+        assertEquals("Mobile", productResponseHttpResponse.body().getName());
+        assertEquals(50000.0, productResponseHttpResponse.body().getPrice());
+        assertEquals(productRequest.getAddedAt(), productResponseHttpResponse.body().getAddedAt());
     }
 }
