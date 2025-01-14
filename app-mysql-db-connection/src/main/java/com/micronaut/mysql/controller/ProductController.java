@@ -34,4 +34,10 @@ public class ProductController {
     HttpResponse<ProductResponse> updateProductById(@PathVariable Long id, @Body ProductRequest productRequest) {
         return HttpResponse.ok(productService.updateProductById(id, productRequest));
     }
+
+    @Delete("/{id}")
+    HttpResponse<Void> deleteProductById(@PathVariable Long id) {
+        productService.deleteProductById(id);
+        return HttpResponse.noContent();
+    }
 }
