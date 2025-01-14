@@ -29,4 +29,9 @@ public class ProductController {
     HttpResponse<List<ProductResponse>> fetchAllProducts() {
         return HttpResponse.ok(productService.findAllProducts());
     }
+
+    @Put("/{id}")
+    HttpResponse<ProductResponse> updateProductById(@PathVariable Long id, @Body ProductRequest productRequest) {
+        return HttpResponse.ok(productService.updateProductById(id, productRequest));
+    }
 }
