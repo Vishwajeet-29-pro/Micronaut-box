@@ -51,4 +51,22 @@ class ProductControllerTest {
         assertEquals(50000.0, productResponseHttpResponse.body().getPrice());
         assertEquals(productRequest.getAddedAt(), productResponseHttpResponse.body().getAddedAt());
     }
+
+    @Test
+    void test_get_product_by_id_should_return_product_response_with_id_and_200_ok() {
+        ProductResponse productResponse = new ProductResponse(1L,"Mobile", "Oppo Reno 14", 50000.0, 50, LocalDateTime.of(2025, 1, 14, 8, 0));
+
+        when(productService.findProductById(1L)).thenReturn(productResponse);
+
+        HttpResponse<ProductResponse> productResponseHttpResponse = httpClient.toBlocking().exchange(
+                HttpRequest.GET("/api/v1/products/" + 1L),
+                ProductResponse.class
+        );
+
+        assertNotNull(productResponseHttpResponse);
+        assertEquals(200, productResponseHttpResponse.getStatus().getCode());
+        assertEquals("Mobile", productResponseHttpResponse.body().getName());
+        assertEquals(50000.0, productResponseHttpResponse.body().getPrice());
+        assertEquals(productResponse.getAddedAt(), productResponseHttpResponse.body().getAddedAt());
+    }
 }
