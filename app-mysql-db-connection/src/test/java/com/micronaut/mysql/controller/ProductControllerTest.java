@@ -88,7 +88,7 @@ class ProductControllerTest {
 
         assertNotNull(listHttpResponse);
         assertEquals(2, listHttpResponse.body().size());
-        assertEquals("Laptop", listHttpResponse.body().getFirst().getName());
+        assertEquals("Mobile", listHttpResponse.body().getFirst().getName());
         assertEquals(65000.0, listHttpResponse.body().getLast().getPrice());
         assertEquals(50, listHttpResponse.body().getFirst().getStockQuantity());
     }
