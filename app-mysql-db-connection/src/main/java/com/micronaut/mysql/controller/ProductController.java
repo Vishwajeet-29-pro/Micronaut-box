@@ -7,6 +7,8 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.*;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Controller("/api/v1/products")
 @RequiredArgsConstructor
 public class ProductController {
@@ -21,5 +23,10 @@ public class ProductController {
     @Get("/{id}")
     public HttpResponse<ProductResponse> findProductById(@PathVariable Long id) {
         return HttpResponse.ok(productService.findProductById(id));
+    }
+
+    @Get
+    HttpResponse<List<ProductResponse>> fetchAllProducts() {
+        return HttpResponse.ok(productService.findAllProducts());
     }
 }
