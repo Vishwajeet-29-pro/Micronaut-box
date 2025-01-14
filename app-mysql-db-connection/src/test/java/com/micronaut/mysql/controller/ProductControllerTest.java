@@ -92,4 +92,24 @@ class ProductControllerTest {
         assertEquals(65000.0, listHttpResponse.body().getLast().getPrice());
         assertEquals(50, listHttpResponse.body().getFirst().getStockQuantity());
     }
+
+    @Test
+    void test_update_product_by_id_should_return_product_response_and_200_ok() {
+        ProductRequest productRequest = new ProductRequest("Mobile Phone", "Oppo Reno 15", 55000.0, 40, LocalDateTime.of(2025, 1, 14, 8, 0));
+        Long id = 1L;
+        ProductResponse productResponse = new ProductResponse(1L, "Mobile Phone", "Oppo Reno 15", 55000.0, 40, LocalDateTime.of(2025, 1, 14, 8, 0));
+
+        when(productService.updateProductById(id, productRequest)).thenReturn(productResponse);
+
+        HttpResponse<ProductResponse> productResponseHttpResponse = httpClient.toBlocking().exchange(
+                HttpRequest.PUT("/api/v1/products/"+ id, productRequest),
+                ProductResponse.class
+        );
+
+        assertNotNull(productResponseHttpResponse);
+        assertEquals(productRequest.getName(), productResponseHttpResponse.body().getName());
+        assertEquals(productResponse.getDescription(), productResponseHttpResponse.body().getDescription());
+        assertEquals(productRequest.getPrice(), productResponseHttpResponse.body().getPrice());
+        assertEquals(productResponse.getStockQuantity(), productResponseHttpResponse.body().getStockQuantity());
+    }
 }
