@@ -29,6 +29,9 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
+
+    implementation(project(":common-config"))
+
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     runtimeOnly("ch.qos.logback:logback-classic")
