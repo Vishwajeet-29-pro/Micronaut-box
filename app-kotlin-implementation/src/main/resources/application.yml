@@ -1,0 +1,24 @@
+micronaut:
+  application:
+    name: Micronaut-Kotlin-Implementation
+  router:
+    static-resources:
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
+datasources:
+  default:
+    url: jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ''
+    driver-class-name: org.h2.Driver
+    dialect: H2
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
