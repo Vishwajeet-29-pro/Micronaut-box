@@ -17,7 +17,7 @@ interface CarRepository: JpaRepository<Car, UUID> {
 data class Car(
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    var id: UUID,
+    var id: UUID?,
     var carName: String,
     var model: String,
     var make: LocalDate,
